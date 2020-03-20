@@ -120,7 +120,7 @@ void update_title_presence(void*, void*) {
 }
 
 void open_github() {
-   system("xdg-open https://github.com/darktohka/audacious-plugin-rpc");
+   system("xdg-open https://github.com/TheEssem/audacious-plugin-rpc");
 }
 
 bool RPCPlugin::init() {
@@ -145,7 +145,7 @@ void RPCPlugin::cleanup() {
     cleanup_discord();
 }
 
-const char RPCPlugin::about[] = N_("Discord RPC music status plugin\n\nWritten by: Derzsi Daniel <daniel@tohka.us>");
+const char RPCPlugin::about[] = N_("Discord RPC music status plugin\n\nWritten by Derzsi Daniel <daniel@tohka.us>, forked by Essem <essem@essem.space>");
 
 const PreferencesWidget RPCPlugin::widgets[] =
 {
