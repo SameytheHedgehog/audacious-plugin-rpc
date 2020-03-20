@@ -77,11 +77,13 @@ void title_changed() {
         Tuple tuple = aud_drct_get_tuple();
         std::string artist(tuple.get_str(Tuple::Artist));
         std::string title(tuple.get_str(Tuple::Title));
+        std::string format(tuple.get_str(Tuple::Codec));
+        std::string length(tuple.get_str(Tuple::Length));
         fullTitle = (artist + " - " + title).substr(0, 127);
-        playingStatus = paused ? "Paused" : "Listening";
-
+        playingStatus = "Type: " + format + ", Length: " + length;
         presence.details = fullTitle.c_str();
         presence.smallImageKey = paused ? "pause" : "play";
+        presence.largeImageText = paused ? "Paused" : "Listening";
     } else {
         playingStatus = "Stopped";
         presence.state = "Stopped";
