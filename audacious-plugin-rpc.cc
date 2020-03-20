@@ -58,6 +58,7 @@ void init_presence() {
     presence.state = "Initialized";
     presence.details = "Waiting...";
     presence.largeImageKey = "logo";
+    presence.largeImageText = "audacious-plugin-rpc v1.2 (fork by Essem)";
     presence.smallImageKey = "stop";
     update_presence();
 }
@@ -65,6 +66,16 @@ void init_presence() {
 void cleanup_discord() {
     Discord_ClearPresence();
     Discord_Shutdown();
+}
+
+int numDigits(int number)
+{
+    int digits = 0;
+    while (number) {
+        number /= 10;
+        digits++;
+    }
+    return digits;
 }
 
 void title_changed() {
@@ -78,12 +89,19 @@ void title_changed() {
         std::string artist(tuple.get_str(Tuple::Artist));
         std::string title(tuple.get_str(Tuple::Title));
         std::string format(tuple.get_str(Tuple::Codec));
-        std::string length(tuple.get_str(Tuple::Length));
-        fullTitle = (artist + " - " + title).substr(0, 127);
-        playingStatus = "Type: " + format + ", Length: " + length;
+        int length(tuple.get_int(Tuple::Length));
+	int min = length / 60000;
+	length = length - 60000 * min;
+	int sec = length / 1000;
+	length = length - 1000 * sec;
+	int digits = numDigits(sec);
+	std::string preSec = "0" + std::to_string(sec);
+	std::string secString(digits > 1 ? std::to_string(sec) : preSec);
+        fullTitle = title.substr(0, 127);
+        playingStatus = "Type: " + format + ", Length: " + std::to_string(min) + ":" + secString;
         presence.details = fullTitle.c_str();
         presence.smallImageKey = paused ? "pause" : "play";
-        presence.largeImageText = paused ? "Paused" : "Listening";
+        presence.smallImageText = paused ? "Paused" : "Playing";
     } else {
         playingStatus = "Stopped";
         presence.state = "Stopped";
