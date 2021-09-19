@@ -86,17 +86,17 @@ void title_changed() {
     if (aud_drct_get_playing()) {
         bool paused = aud_drct_get_paused();
         Tuple tuple = aud_drct_get_tuple();
-        std::string artist(tuple.get_str(Tuple::Artist));
+        String artist = tuple.get_str(Tuple::Artist);
         std::string title(tuple.get_str(Tuple::Title));
         std::string format(tuple.get_str(Tuple::Codec));
         int length(tuple.get_int(Tuple::Length));
-	int min = length / 60000;
-	length = length - 60000 * min;
-	int sec = length / 1000;
-	length = length - 1000 * sec;
-	int digits = numDigits(sec);
-	std::string preSec = "0" + std::to_string(sec);
-	std::string secString(digits > 1 ? std::to_string(sec) : preSec);
+	    int min = length / 60000;
+	    length = length - 60000 * min;
+	    int sec = length / 1000;
+	    length = length - 1000 * sec;
+	    int digits = numDigits(sec);
+	    std::string preSec = "0" + std::to_string(sec);
+	    std::string secString(digits > 1 ? std::to_string(sec) : preSec);
         fullTitle = title.substr(0, 127);
         playingStatus = "Type: " + format + ", Length: " + std::to_string(min) + ":" + secString;
         presence.details = fullTitle.c_str();
