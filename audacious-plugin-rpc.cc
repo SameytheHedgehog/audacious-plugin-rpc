@@ -58,7 +58,7 @@ void init_presence() {
     presence.state = "Initialized";
     presence.details = "Waiting...";
     presence.largeImageKey = "logo";
-    presence.largeImageText = "audacious-plugin-rpc v1.2 (fork by Essem)";
+    presence.largeImageText = "audacious-plugin-rpc v1.2 (Samey's Edit)";
     presence.smallImageKey = "stop";
     update_presence();
 }
@@ -86,7 +86,7 @@ void title_changed() {
     if (aud_drct_get_playing()) {
         bool paused = aud_drct_get_paused();
         Tuple tuple = aud_drct_get_tuple();
-        String artist = tuple.get_str(Tuple::Artist);
+        String album = tuple.get_str(Tuple::Album);
         std::string title(tuple.get_str(Tuple::Title));
         std::string format(tuple.get_str(Tuple::Codec));
         int length(tuple.get_int(Tuple::Length));
@@ -97,8 +97,14 @@ void title_changed() {
 	    int digits = numDigits(sec);
 	    std::string preSec = "0" + std::to_string(sec);
 	    std::string secString(digits > 1 ? std::to_string(sec) : preSec);
-        fullTitle = title.substr(0, 127);
-        playingStatus = "Type: " + format + ", Length: " + std::to_string(min) + ":" + secString;
+
+        if (album) {
+            fullTitle = (title + " - " + std::string(album)).substr(0, 127);
+        } else {
+            fullTitle = title.substr(0, 127);
+        }
+
+        playingStatus = "Length: " + std::to_string(min) + ":" + secString + ", Type: " + format;
         presence.details = fullTitle.c_str();
         presence.smallImageKey = paused ? "pause" : "play";
         presence.smallImageText = paused ? "Paused" : "Playing";
@@ -120,7 +126,7 @@ void update_title_presence(void*, void*) {
 }
 
 void open_github() {
-   system("xdg-open https://github.com/TheEssem/audacious-plugin-rpc");
+   system("xdg-open https://github.com/SameytheHedgehog/audacious-plugin-rpc");
 }
 
 bool RPCPlugin::init() {
@@ -145,7 +151,7 @@ void RPCPlugin::cleanup() {
     cleanup_discord();
 }
 
-const char RPCPlugin::about[] = N_("Discord RPC music status plugin\n\nWritten by Derzsi Daniel <daniel@tohka.us>, forked by Essem <essem@essem.space>");
+const char RPCPlugin::about[] = N_("Discord RPC music status plugin\n\nWritten by Derzsi Daniel <daniel@tohka.us>\nForked by Essem <essem@essem.space>\nEditted by SameytheHedgie");
 
 const PreferencesWidget RPCPlugin::widgets[] =
 {
