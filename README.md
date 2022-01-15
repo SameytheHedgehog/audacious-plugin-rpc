@@ -14,13 +14,16 @@ A Discord Rich Presence plugin for the Audacious music player!
 Before trying to compile this, make sure you have these. I didn't realize what I needed and it took me a good while (a couple of years) to figure what I needed.
 
 c++ compiler
-```sudo apt-get install build-essential manpages-dev
+```
+sudo apt-get install build-essential manpages-dev
 ```
 Audacious Development files
-```sudo apt install audacious-dev
+```
+sudo apt install audacious-dev
 ```
 GTK+ Development files
-```sudo apt install build-essential libgtk-3-dev
+```
+sudo apt install build-essential libgtk-3-dev
 ```
 
 # Compilation
