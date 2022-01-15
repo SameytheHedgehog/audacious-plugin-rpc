@@ -58,7 +58,7 @@ void init_presence() {
     presence.state = "Initialized";
     presence.details = "Waiting...";
     presence.largeImageKey = "logo";
-    presence.largeImageText = "audacious-plugin-rpc v1.2 (Samey's Edit)";
+    presence.largeImageText = "audacious-plugin-rpc v1.2.1 (Samey's Edit)";
     presence.smallImageKey = "stop";
     update_presence();
 }
